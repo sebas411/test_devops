@@ -39,8 +39,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: npm-packages
-      - name: install packages
-        run: npm ci
       - name: lint
         run: npm run lint
   
@@ -60,6 +58,8 @@ jobs:
           name: npm-packages
       - name: install packages
         run: npm ci
+      - name: install prettier
+        run: npm i -g prettier
       - name: format
         run: npm run prettier
 
