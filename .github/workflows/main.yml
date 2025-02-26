@@ -1,0 +1,68 @@
+name: main pipeline
+
+on: [pull_request]
+
+defaults:
+  run:
+    working-directory: ./codebase/rdicidr-0.1.0
+
+jobs:
+  
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '15.x'
+      - name: install packages
+        run: npm ci
+      - name: lint
+        run: npm run lint
+  
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '15.x'
+      - name: install packages
+        run: npm ci
+      - name: install prettier
+        run: npm i -g prettier
+      - name: format
+        run: npm run prettier
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '15.x'
+      - name: install packages
+        run: npm ci
+      - name: test
+        run: CI=true npm run test
+  
+  build:
+    needs: ['lint', 'format', 'test']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '15.x'
+      - name: install packages
+        run: npm ci
+      - name: build
+        run: npm run build
