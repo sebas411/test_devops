@@ -39,6 +39,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: npm-packages
+      - name: install packages
+        run: npm ci
       - name: lint
         run: npm run lint
   
@@ -56,6 +58,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: npm-packages
+      - name: install packages
+        run: npm ci
       - name: format
         run: npm run prettier
 
@@ -73,6 +77,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: npm-packages
+      - name: install packages
+        run: npm ci
       - name: test
         run: CI=true npm run test
   
@@ -90,5 +96,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: npm-packages
+      - name: install packages
+        run: npm ci
       - name: build
         run: npm run build
