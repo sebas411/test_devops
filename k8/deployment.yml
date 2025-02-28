@@ -4,6 +4,7 @@ metadata:
   name: nginx-deployment
   labels:
     app: nginx
+  namespace: production
 spec:
   replicas: 3
   selector:
@@ -16,6 +17,12 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.14.2
+        image: sebas411/fullstack-demo
         ports:
         - containerPort: 80
+        env:
+        - name: MY_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: fullstack-secret
+              key: my_secret
